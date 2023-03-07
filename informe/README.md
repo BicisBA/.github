@@ -150,9 +150,13 @@ Al terminar el entrenamiento, el paquete registra una nueva version del modelo e
 Mientras tanto, la API debe refrescar el modelo cada vez que haya una nueva version disponible. Al arrancar el proceso, carga la ultima version disponible en MLFlow de ambos estimadores. Luego, cada un tiempo configurable, hace un pedido a la API de MLFLow para revisar si se ha registrado una version mas reciente a la cargada en memoria. Cuando se encuentra una version mas reciente, se descarga y reemplaza al estimador anterior. A partir de ese momento se utilizará la nueva version para futuras predicciones. Adicionalmente, la API registra que versión utilizó para cada prediccion, para, junto con los features guardados, poder repetir las predicciones y ayudar a debuggear los modelos.
 
 ## Resolucion de consultas
-Haciendo doble click en la arquitectura, para explicar el flujo como usuario se explica en el siguiente diagrama como interactua un cliente con la API:
+Haciendo doble click en la arquitectura, para explicar el flujo como usuario se explica en el siguiente diagrama como interactua un cliente con la API para obtener una predicción:
 
 ![Diagrama de secuencia de una consulta](./img/client_get.png){width=500px}
+
+Primero debe pedir las estaciones, para luego buscar aquellas más cercanas. La API primero intenta buscarlo en la cache (Redis) y frente a un miss, busca el último estado en la DB (PostgreSQL).
+
+
 
 # Frontend
 

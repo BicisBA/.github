@@ -178,3 +178,7 @@ Con este balance logramos que el usuario tenga una experiencia poco caótica en 
 	- Configurar y desplegar prometheus para métricas
 	- Configurar y desplegar grafana para dashboards
 	- Configurar y desplegar Loki para revisión de logs
+- Dashboard de predicciones: dado que guardamos todas las predicciones hechas podemos medir _model drift_ y medir performance online de los modelos
+- Gráficos de historial de estaciones: ver en la pagina algunas graficas del estado histórico de cada estación
+- Gráficos de "zonas calientes": marcar en un mapa cuales son las zonas desde las cuales mas se está usando la plataforma y las estaciones mas solicitadas en los ultimos minutos
+- DAG de reentrenamiento. Para poder ejecutar esto, se recomendaría usar un KubernetesPodOperator para correr en un entorno aprovisionado con recursos suficientes.

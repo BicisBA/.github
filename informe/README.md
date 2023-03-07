@@ -156,7 +156,9 @@ Haciendo doble click en la arquitectura, para explicar el flujo como usuario se 
 
 Primero debe pedir las estaciones, para luego buscar aquellas más cercanas. La API primero intenta buscarlo en la cache (Redis) y frente a un miss, busca el último estado en la DB (PostgreSQL).
 
+Se corren ambos modelos, y se guarda la predicción completa a la DB. Esto incluye ambas predicciones, que versiones de cada modelo se usaron, las features utilizadas en cada modelo, la ubicación geográfica del usuario, su tiempo estimado de arribo, y la estación para la cual se solicitó la predicción.
 
+Luego, esa predicción se devuelve al cliente. En el proceso de marshaling de la respuesta muchos de los campos antes mencionados de dejan de lado, para no sobrecargar al cliente con información inútil.
 
 # Frontend
 

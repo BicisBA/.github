@@ -161,4 +161,14 @@ Dada la geolocalización del usuario, tanto desde el celular como desde una comp
 
 Adicionalmente, de las estaciones amarillas y rojas podemos ver en que momento se nos recomienda salir para poder encontrarnos una bicicleta, para poder cronometrar mejor nuestra salida.
 
+Un problema encontrado al trabajar con la localización en tiempo real del usuario (por ejemplo, cuando camina con el celular) es el de tener las predicciones frescas, sin sobrecargar al backend. Para esto hay que balancear las expectativas del usuario (no sirve de nada ver como cambian levemente los números mientras caminás en una dirección determinada) y la realidad de los datos (no queremos empezar a caminar para una estación y que al rato deje de ser la óptima).
+
+Entonces, hay distintos períodos de actualización, para distintas porciones de la información que mostramos:
+
+- Cada 30 segundos se actualiza la información de las estaciones, para saber cuantas bicicletas contienen actualmente
+- Cada 200 metros se actualizan las predicciones del backend, para saber que estación es la óptima
+
+Con este balance logramos que el usuario tenga una experiencia poco caótica en su pantalla y bastante cercana a los datos reales.
+
 # Trabajo futuro
+

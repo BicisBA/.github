@@ -160,3 +160,5 @@ Dada la geolocalización del usuario, tanto desde el celular como desde una comp
 ![Tiempo de salida recomendado para las estaciones de baja probabilidad](./img/front-2.png){width=500px}
 
 Adicionalmente, de las estaciones amarillas y rojas podemos ver en que momento se nos recomienda salir para poder encontrarnos una bicicleta, para poder cronometrar mejor nuestra salida.
+
+# Trabajo futuro

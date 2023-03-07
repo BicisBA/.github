@@ -143,6 +143,11 @@ Explicacion--
 
 ![Diagrama de secuencia de un entrenamiento](./img/model_reload.png){width=500px}
 
+## Resolucion de consultas
+Explicacion--
+
+![Diagrama de secuencia de una consulta](./img/client_get.png){width=500px}
+
 # Frontend
 
 Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.

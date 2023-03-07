@@ -139,6 +139,8 @@ La API del backend corre en un PaaS hosteado por uno de los miembros del grupo (
 ## Sección 5
 Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy que trabaja cómodamente con containers de docker y asigna las rutas basado en etiquetas. Se integra con dokku facilmente.
 
+## Sección 6
+En el siguiente apartado se describe en mayor profundidad el frontend, desarrollado en React y  utilizando Chakra UI. Actualmente se aloja en GitHub Pages, pero está la imagen de docker disponible para eventualmente desplegarlo en Dokku.
 
 # Frontend
 

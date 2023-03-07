@@ -171,4 +171,10 @@ Entonces, hay distintos períodos de actualización, para distintas porciones de
 Con este balance logramos que el usuario tenga una experiencia poco caótica en su pantalla y bastante cercana a los datos reales.
 
 # Trabajo futuro
-- Desde el lado de la ingesta de datos, queda pendiente emprolijar el DAG de Airflow
+- Desde el lado de la ingesta de datos, queda pendiente emprolijar el DAG de Airflow para pasar desde la data cruda en S3 a la data particionada en parquet en MINio
+- Se podría plantear un esquema de cache por geografía para mejorar el throughput del Backend
+- Monitoreo del backend
+	- Se podría instrumentar la API con [prometheus-fastapi-instrumentator](https://pypi.org/project/prometheus-fastapi-instrumentator/) para exponer métricas en el formato de prometheus
+	- Configurar y desplegar prometheus para métricas
+	- Configurar y desplegar grafana para dashboards
+	- Configurar y desplegar Loki para revisión de logs

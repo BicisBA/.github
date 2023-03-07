@@ -139,9 +139,15 @@ Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy
 En el siguiente apartado se describe en mayor profundidad el frontend, desarrollado en React y  utilizando Chakra UI. Actualmente se aloja en GitHub Pages, pero está la imagen de docker disponible para eventualmente desplegarlo en Dokku.
 
 ## Entrenamiento y recarga del modelo
-Explicacion--
+Sobre el proceso de despliegue de una nueva version del modelo, el siguiente diagrama ayuda a graficar todo el ciclo de vida de un modelo:
 
 ![Diagrama de secuencia de un entrenamiento](./img/model_reload.png){width=500px}
+
+Actualmente, el entrenamiento se hace manualmente, on-demand. El/la data scientist del gráfico puede iniciar un nuevo entrenamiento con la CLI para mayor facilidad o importar los módulos y ajustar los pasos necesarios.
+
+Al terminar el entrenamiento, el paquete registra una nueva version del modelo en MLFlow. Durante la ejecución, se registran hiperparametros, métricas y otra información contextual.
+
+Mientras tanto, la API debe refrescar el modelo cada vez que haya una nueva version disponible. Al arrancar el proceso, carga la ultima version disponible en MLFlow de ambos estimadores. Luego, cada un tiempo configurable, hace un pedido a la API de MLFLow para revisar si se ha registrado una version mas reciente a la cargada en memoria. Cuando se encuentra una version mas reciente, se descarga y reemplaza al estimador anterior. A partir de ese momento se utilizará la nueva version para futuras predicciones. Adicionalmente, la API registra que versión utilizó para cada prediccion, para, junto con los features guardados, poder repetir las predicciones y ayudar a debuggear los modelos.
 
 # Frontend
 

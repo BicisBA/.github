@@ -118,7 +118,26 @@ Ambos modelos pueden mejorarse teniendo en cuenta el estado de las estaciones ce
 Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.
 
 # Backend
+El siguiente diagrama muestra todas las partes sistema y como se relacionan.
+
 ![Arquitectura](./img/arch.png){width=500px}
+
+## Sección 1
+La primer parte es obtener la data desde la API de transporte de la ciudad. Mediante un Cloudwatch Trigger se lanza una Lambda function cada 1 minuto que guarda el resultado como JSON de la api en S3. Tenemos alrededor de 700GB de datos, correspondientes a los ultimos 3 años.
+
+## Sección 2
+La data cruda como JSON no es particularmente útil para hacer consultas, por ser muy pesada. En esta segunda etapa esa data cruda en JSON se pasa a parquet y se sube a un bucket particionado por año, mes, dia y hora en MINio. Este proceso está orquestado con Apache Airflow para correr horariamente.
+
+## Sección 3
+Ya a esta altura tenemos toda la data lista para entrenar. Para evitar instalar un motor SQL para poder hacer consultas rápidamente utilizamos DuckDB desde local para consultar la data particionada en parquet en MINio. Con la data cargada, entrenamos el modelo y lo cargamos en MLFlow, junto con sus parametros.
+
+## Sección 4
+La API del backend corre en un PaaS hosteado por uno de los miembros del grupo (Dokku), que es muy similar en uso a Heroku. Utilizamos dos plugins:
+1. PostgreSQL como RDBMS
+2. Redis para cache
+
+## Sección 5
+
 
 # Frontend
 

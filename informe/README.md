@@ -149,6 +149,11 @@ Al terminar el entrenamiento, el paquete registra una nueva version del modelo e
 
 Mientras tanto, la API debe refrescar el modelo cada vez que haya una nueva version disponible. Al arrancar el proceso, carga la ultima version disponible en MLFlow de ambos estimadores. Luego, cada un tiempo configurable, hace un pedido a la API de MLFLow para revisar si se ha registrado una version mas reciente a la cargada en memoria. Cuando se encuentra una version mas reciente, se descarga y reemplaza al estimador anterior. A partir de ese momento se utilizará la nueva version para futuras predicciones. Adicionalmente, la API registra que versión utilizó para cada prediccion, para, junto con los features guardados, poder repetir las predicciones y ayudar a debuggear los modelos.
 
+## Resolucion de consultas
+Explicacion--
+
+![Diagrama de secuencia de una consulta](./img/client_get.png){width=500px}
+
 # Frontend
 
 Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.

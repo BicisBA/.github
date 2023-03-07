@@ -4,7 +4,7 @@
 
 En 2019 la empresa brasilera Tembici ganó la licitación para operar el sistema de bicicletas compartidas de la ciudad de Buenos Aires, conocido como **EcoBici**, por 10 años. Los usuarios se deben registrar con tarjeta de crédito desde el sitio web para poder acceder al sistema. Luego, la aplicación [BA Ecobici](https://baecobici.com.ar) permite retirar bicicletas en cualquiera de las más de 200 estaciones repartidas en la ciudad.
 
-![Application snapshot](./img/app.png)
+![Snapshot de la aplicacion](./img/app.png){height=300px}
 
 En la captura anterior de la aplicación podemos ver las estaciones cercanas a la sede en Paseo Colón de FIUBA. Se le indica al usuario la cantidad de bicicletas disponibles, y al hacer click, la cantidad de lugares disponibles para dejar una bicicleta, así quienes tengan que dejar una bicicleta tomada en otra estación saben si pueden dejarla ahí.
 
@@ -51,27 +51,27 @@ Finalmente el 91% del tiempo las estaciones tienen bicicletas disponibles, lo qu
 ### Variación de bicicletas diarias
 Tomando 5 estaciones al azar, vemos la disponibilidad de bicicletas promedio. Se puede ver que algunas estaciones tienen menos bicicletas disponibles en promedio, y que los máximos y mínimos se dan en momentos diferentes.
 
-![Cantidad de bicicletas promedio por hora para 5 estaciones tomadas al azar](./img/num_bikes.png)
+![Cantidad de bicicletas promedio por hora para 5 estaciones tomadas al azar](./img/num_bikes.png){width=500px}
 
 ### Porcentaje de tiempo vacía
 Tomando la primera semana de octubre se trajo el porcentaje de tiempo que la estación estuvo vacía por hora. Se puede ver que estaciones como la 188 siempre tiene bicicletas disponibles, mientras que la 174 pasa más tiempo vacía. También se ve que la disponibilidad baja en distintos momentos para las diferentes estaciones.
 
-![Porcentaje de tiempo que una estacion esta vacia por hora para 5 estaciones tomadas al azar](./img/perc_empty.png)
+![Porcentaje de tiempo que una estacion esta vacia por hora para 5 estaciones tomadas al azar](./img/perc_empty.png){width=500px}
 
 ### Evolución de bicicletas
 Se armó un conjunto de datos con la cantidad de bicicletas disponibles después de diferentes periodos de tiempo. En el siguiente gráfico se compara la cantidad de bicicletas disponibles y la que quedaron después del periodo de tiempo, se puede ver una relación lineal con bastante variabilidad.
 
-![Distribucion de las bicicletas actuales vs las que quedan despues de distintos periodos de tiempo](./img/bike_change.png)
+![Distribucion de las bicicletas actuales vs las que quedan despues de distintos periodos de tiempo](./img/bike_change.png){width=500px}
 
 ### Diferencia de bicicletas
 A partir del conjunto de datos anterior se calculó la diferencia entre las bicicletas iniciales y las que quedaban en la estación, se puede ver que la diferencia de bicicletas se distribuye normalmente centrada en cero.
 
-![Distribucion de la diferencia de bicicletas despues de distintos periodos de tiempo](./img/bike_dif.png)
+![Distribucion de la diferencia de bicicletas despues de distintos periodos de tiempo](./img/bike_dif.png){width=500px}
 
 ### Diferencia de bicicletas en el tiempo
 Se tomó el valor absoluto promedio de los cambios de bicicleta para distintos minutos desde el último reporte de la estación. Se ve que la diferencia de bicicletas crece mientras mas minutos pasan. 
 
-![Evolucion del valor absoluto medio de diferencia de bicicletas en funcion del tiempo que pasa](./img/bike_dif_time.png)
+![Evolucion del valor absoluto medio de diferencia de bicicletas en funcion del tiempo que pasa](./img/bike_dif_time.png){width=500px}
 
 ## Modelo de disponibilidad
 ### Conjunto de datos
@@ -84,19 +84,19 @@ La hora y el día de la semana se transformaron usando one hot encoding, donde f
 Se probaron redes neuronales, random forest y lightgbm. El desempeño de los modelos era similar, pero por el tiempo de entrenamiento y mejora, elegimos lightgbm.
 Todos los modelos permiten agregar pesos a las muestras, de esta manera le damos más importancia a los casos negativos, para de esta manera reducir los falsos positivos.
 
-![Matriz de confusion para el modelo de disponibilidad](./img/cm_avail.png)
+![Matriz de confusion para el modelo de disponibilidad](./img/cm_avail.png){width=200px}
 
 Conseguimos una tasa de falsos positivos de menos del 1%, con una precisión en la disponibilidad del 99.96%.
 
 ### Estaciones como features vs estaciones como modelos
 Las estaciones se pueden usar como features categóricas dentro de los modelos o tener modelos separados por cada estación. Usar las estaciones como features empeoraba los falsos negativos en un 50%, además de que el modelo tardaba 8 veces más en entrenar por la cantidad de datos, por eso decidimos usar las estaciones como modelos separados.
 
-![Matriz de confusion para el modelo de disponibilidad usando las estaciones como features](./img/model_feat_avail.png)
+![Matriz de confusion para el modelo de disponibilidad usando las estaciones como features](./img/model_feat_avail.png){width=200px}
 
 ### Shap values
 Los Shap values permiten darle explicabilidad a los modelos complejos como light gbm. El valor medio de los shap values indica qué características están teniendo más importancia en el modelo para dar un resultado. Tomando los shap values sobre los modelos de 3 estaciones al azar, se puede ver que lo que más considera el modelo es la cantidad de bicicletas disponibles, junto con el momento de la consulta y el tiempo hasta la estacion.
 
-![Shap values para distintos modelos de disponibilidad de estaciones](./img/shap_avail.png)
+![Shap values para distintos modelos de disponibilidad de estaciones](./img/shap_avail.png){width=450px}
 
 ## Modelo de tiempo estimado de arribo
 ### Conjunto de datos
@@ -111,13 +111,11 @@ Probamos con redes neuronales, regresión linear regularizada y lightgbm. El err
 ### Shap values
 Observando los shap values de modelos tomados al azar vemos que a lo que mas le prestan atención es a la hora, el día de la semana y los espacios disponibles.
 
-![Shap values para distintos modelos de tiempo de arribo de estaciones](./img/shap_eta.png)
+![Shap values para distintos modelos de tiempo de arribo de estaciones](./img/shap_eta.png){width=450px}
 
 ## Siguientes pasos
 Ambos modelos pueden mejorarse teniendo en cuenta el estado de las estaciones cercanas. También se puede incorporar información sobre el estado global del sistema, teniendo en cuenta los viajes que se están realizando en este momento. Finalmente se puede incorporar información sobre trayectos frecuentes y modelar las dinámicas de los viajes.
 Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.
-
-
 
 # Backend
 

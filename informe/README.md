@@ -113,10 +113,6 @@ Observando los shap values de modelos tomados al azar vemos que a lo que más le
 
 ![Shap values para distintos modelos de tiempo de arribo de estaciones](./img/shap_eta.png){width=450px}
 
-## Siguientes pasos
-Ambos modelos pueden mejorarse teniendo en cuenta el estado de las estaciones cercanas. También se puede incorporar información sobre el estado global del sistema, teniendo en cuenta los viajes que se están realizando en este momento. Finalmente se puede incorporar información sobre trayectos frecuentes y modelar las dinámicas de los viajes.
-Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.
-
 # Backend
 El siguiente diagrama muestra todas las partes del sistema y como se relacionan.
 
@@ -171,6 +167,7 @@ Entonces, hay distintos períodos de actualización, para distintas porciones de
 Con este balance logramos que el usuario tenga una experiencia poco caótica en su pantalla y bastante cercana a los datos reales.
 
 # Trabajo futuro
+
 - Desde el lado de la ingesta de datos, queda pendiente emprolijar el DAG de Airflow para pasar desde la data cruda en S3 a la data particionada en parquet en MINio
 - Se podría plantear un esquema de cache por geografía para mejorar el throughput del Backend
 - Monitoreo del backend
@@ -182,3 +179,5 @@ Con este balance logramos que el usuario tenga una experiencia poco caótica en 
 - Gráficos de historial de estaciones: ver en la página algunas gráficas del estado histórico de cada estación
 - Gráficos de "zonas calientes": marcar en un mapa cuales son las zonas desde las cuales más se está usando la plataforma y las estaciones mas solicitadas en los íltimos minutos
 - DAG de reentrenamiento. Para poder ejecutar esto, se recomendaría usar un KubernetesPodOperator para correr en un entorno aprovisionado con recursos suficientes.
+- Los modelos pueden mejorarse teniendo en cuenta el estado de las estaciones cercanas. También se puede incorporar información sobre el estado global del sistema, teniendo en cuenta los viajes que se están realizando en este momento. Finalmente se puede incorporar información sobre trayectos frecuentes y modelar las dinámicas de los viajes.
+- Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.

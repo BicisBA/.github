@@ -69,7 +69,7 @@ A partir del conjunto de datos anterior se calculó la diferencia entre las bici
 ![Distribucion de la diferencia de bicicletas despues de distintos periodos de tiempo](./img/bike_dif.png){width=500px}
 
 ### Diferencia de bicicletas en el tiempo
-Se tomó el valor absoluto promedio de los cambios de bicicleta para distintos minutos desde el último reporte de la estación. Se ve que la diferencia de bicicletas crece mientras mas minutos pasan. 
+Se tomó el valor absoluto promedio de los cambios de bicicleta para distintos minutos desde el último reporte de la estación. Se ve que la diferencia de bicicletas crece mientras mas minutos pasan.
 
 ![Evolucion del valor absoluto medio de diferencia de bicicletas en funcion del tiempo que pasa](./img/bike_dif_time.png){width=500px}
 
@@ -121,6 +121,19 @@ Además de la información del sistema de bicicletas en sí, se puede agregar al
 
 # Frontend
 
-```zsh
-ipsum
-```
+Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a que estación ir y en que momento ir.
+
+Para esto, tomando la información que nos da la API del backend, plasmamos los resultados de las predicciones en una aplicación web: [BicisBA.github.io](BicisBA.github.io). Esta aplicación fue desarrollada en React y diseñada con [Chakra UI](chakra-ui.com/).
+
+Dada la geolocalización del usuario, tanto desde el celular como desde una computadora, la aplicación clasifica las estaciones más cercanas al usuario en distintos colores: \textcolor{ForestGreen}{verde}, \textcolor{Goldenrod}{amarillo} y \textcolor{RedOrange}{rojo}.
+
+![Estaciones cercanas](./img/front-1.png){width=500px}
+
+
+- Las estaciones \textcolor{ForestGreen}{verdes} son aquellas a las que es seguro ir: para cuando lleguemos tenemos una muy alta probabilidad de conseguir una bicicleta.
+- Las estaciones \textcolor{Goldenrod}{amarillas} son estaciones a las que nos conviene ir si no tenemos ninguna mejor alternativa disponible, ya que no hay una gran probabilidad de encontrar bicicletas en ellas.
+- Las estaciones \textcolor{RedOrange}{rojas} son estaciones a las que no nos conviene ir, porque predecimos que hay una muy baja probabilidad de encontrarnos con una bicicleta.
+
+![Tiempo de salida recomendado para las estaciones de baja probabilidad](./img/front-2.png){width=500px}
+
+Adicionalmente, de las estaciones amarillas y rojas podemos ver en que momento se nos recomienda salir para poder encontrarnos una bicicleta, para poder cronometrar mejor nuestra salida.

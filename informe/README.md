@@ -137,6 +137,7 @@ La API del backend corre en un PaaS hosteado por uno de los miembros del grupo (
 2. Redis para cache
 
 ## Sección 5
+Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy que trabaja cómodamente con containers de docker y asigna las rutas basado en etiquetas. Se integra con dokku facilmente.
 
 
 # Frontend

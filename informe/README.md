@@ -162,3 +162,4 @@ Dada la geolocalización del usuario, tanto desde el celular como desde una comp
 Adicionalmente, de las estaciones amarillas y rojas podemos ver en que momento se nos recomienda salir para poder encontrarnos una bicicleta, para poder cronometrar mejor nuestra salida.
 
 # Trabajo futuro
+- Desde el lado de la ingesta de datos, queda pendiente emprolijar el DAG de Airflow

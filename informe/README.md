@@ -4,7 +4,7 @@
 
 En 2019 la empresa brasilera Tembici ganó la licitación para operar el sistema de bicicletas compartidas de la ciudad de Buenos Aires, conocido como **EcoBici**, por 10 años. Los usuarios se deben registrar con tarjeta de crédito desde el sitio web para poder acceder al sistema. Luego, la aplicación [BA Ecobici](https://baecobici.com.ar) permite retirar bicicletas en cualquiera de las más de 200 estaciones repartidas en la ciudad.
 
-![Snapshot de la aplicacion](./img/app.png){height=300px}
+![Snapshot de la aplicación](./img/app.png){height=300px}
 
 En la captura anterior de la aplicación podemos ver las estaciones cercanas a la sede en Paseo Colón de FIUBA. Se le indica al usuario la cantidad de bicicletas disponibles, y al hacer click, la cantidad de lugares disponibles para dejar una bicicleta, así quienes tengan que dejar una bicicleta tomada en otra estación saben si pueden dejarla ahí.
 
@@ -46,7 +46,7 @@ En promedio hay aproximadamente 7 bicicletas por estación, con bastante variaci
 Se ve que casi nunca hay espacios para estacionar deshabilitados, y en promedio hay 9 espacios disponibles para estacionar.
 Finalmente el 91% del tiempo las estaciones tienen bicicletas disponibles, lo que nos dejan con cerca de un 9% del tiempo con estaciones vacías.
 
-![Distribucion de la media de las variables por estacion](./img/prom_por_est.png)
+![Distribución de la media de las variables por estacion](./img/prom_por_est.png)
 
 ### Variación de bicicletas diarias
 Tomando 5 estaciones al azar, vemos la disponibilidad de bicicletas promedio. Se puede ver que algunas estaciones tienen menos bicicletas disponibles en promedio, y que los máximos y mínimos se dan en momentos diferentes.
@@ -56,22 +56,22 @@ Tomando 5 estaciones al azar, vemos la disponibilidad de bicicletas promedio. Se
 ### Porcentaje de tiempo vacía
 Tomando la primera semana de octubre se trajo el porcentaje de tiempo que la estación estuvo vacía por hora. Se puede ver que estaciones como la 188 siempre tiene bicicletas disponibles, mientras que la 174 pasa más tiempo vacía. También se ve que la disponibilidad baja en distintos momentos para las diferentes estaciones.
 
-![Porcentaje de tiempo que una estacion esta vacia por hora para 5 estaciones tomadas al azar](./img/perc_empty.png){width=500px}
+![Porcentaje de tiempo que una estación está vacía por hora para 5 estaciones tomadas al azar](./img/perc_empty.png){width=500px}
 
 ### Evolución de bicicletas
 Se armó un conjunto de datos con la cantidad de bicicletas disponibles después de diferentes periodos de tiempo. En el siguiente gráfico se compara la cantidad de bicicletas disponibles y la que quedaron después del periodo de tiempo, se puede ver una relación lineal con bastante variabilidad.
 
-![Distribucion de las bicicletas actuales vs las que quedan despues de distintos periodos de tiempo](./img/bike_change.png){width=500px}
+![Distribución de las bicicletas actuales vs las que quedan después de distintos periodos de tiempo](./img/bike_change.png){width=500px}
 
 ### Diferencia de bicicletas
 A partir del conjunto de datos anterior se calculó la diferencia entre las bicicletas iniciales y las que quedaban en la estación, se puede ver que la diferencia de bicicletas se distribuye normalmente centrada en cero.
 
-![Distribucion de la diferencia de bicicletas despues de distintos periodos de tiempo](./img/bike_dif.png){width=500px}
+![Distribución de la diferencia de bicicletas despues de distintos periodos de tiempo](./img/bike_dif.png){width=500px}
 
 ### Diferencia de bicicletas en el tiempo
 Se tomó el valor absoluto promedio de los cambios de bicicleta para distintos minutos desde el último reporte de la estación. Se ve que la diferencia de bicicletas crece mientras mas minutos pasan.
 
-![Evolucion del valor absoluto medio de diferencia de bicicletas en funcion del tiempo que pasa](./img/bike_dif_time.png){width=500px}
+![Evolución del valor absoluto medio de diferencia de bicicletas en función del tiempo que pasa](./img/bike_dif_time.png){width=500px}
 
 ## Modelo de disponibilidad
 ### Conjunto de datos
@@ -84,23 +84,23 @@ La hora y el día de la semana se transformaron usando one hot encoding, donde f
 Se probaron redes neuronales, random forest y lightgbm. El desempeño de los modelos era similar, pero por el tiempo de entrenamiento y mejora, elegimos lightgbm.
 Todos los modelos permiten agregar pesos a las muestras, de esta manera le damos más importancia a los casos negativos, para de esta manera reducir los falsos positivos.
 
-![Matriz de confusion para el modelo de disponibilidad](./img/cm_avail.png){width=200px}
+![Matriz de confusión para el modelo de disponibilidad](./img/cm_avail.png){width=200px}
 
 Conseguimos una tasa de falsos positivos de menos del 1%, con una precisión en la disponibilidad del 99.96%.
 
 ### Estaciones como features vs estaciones como modelos
 Las estaciones se pueden usar como features categóricas dentro de los modelos o tener modelos separados por cada estación. Usar las estaciones como features empeoraba los falsos negativos en un 50%, además de que el modelo tardaba 8 veces más en entrenar por la cantidad de datos, por eso decidimos usar las estaciones como modelos separados.
 
-![Matriz de confusion para el modelo de disponibilidad usando las estaciones como features](./img/model_feat_avail.png){width=200px}
+![Matriz de confusión para el modelo de disponibilidad usando las estaciones como features](./img/model_feat_avail.png){width=200px}
 
 ### Shap values
-Los Shap values permiten darle explicabilidad a los modelos complejos como light gbm. El valor medio de los shap values indica qué características están teniendo más importancia en el modelo para dar un resultado. Tomando los shap values sobre los modelos de 3 estaciones al azar, se puede ver que lo que más considera el modelo es la cantidad de bicicletas disponibles, junto con el momento de la consulta y el tiempo hasta la estacion.
+Los Shap values permiten darle explicabilidad a los modelos complejos como light gbm. El valor medio de los shap values indica qué características están teniendo más importancia en el modelo para dar un resultado. Tomando los shap values sobre los modelos de 3 estaciones al azar, se puede ver que lo que más considera el modelo es la cantidad de bicicletas disponibles, junto con el momento de la consulta y el tiempo hasta la estación.
 
 ![Shap values para distintos modelos de disponibilidad de estaciones](./img/shap_avail.png){width=450px}
 
 ## Modelo de tiempo estimado de arribo
 ### Conjunto de datos
-Para armar el conjunto de datos tomamos el minimo de los siguientes estados que tenían más bicicletas que el estado actual, cuando la estación está vacía, de ahí se obtuvieron los minutos hasta el próximo arribo que se tomó como el valor a predecir.
+Para armar el conjunto de datos tomamos el mínimo de los siguientes estados que tenían más bicicletas que el estado actual, cuando la estación está vacía, de ahí se obtuvieron los minutos hasta el próximo arribo que se tomó como el valor a predecir.
 
 ### Modelos y métrica
 Se usó el error absoluto medio para evaluar, de esta manera era fácil interpretar cuantos minutos de más podía hacer esperar a alguien el modelo. Al igual que en el modelo de disponibilidad se tuvo en cuenta el tamaño de los modelos y el tiempo de entrenamiento.
@@ -109,7 +109,7 @@ Nuevamente la hora y el día de la semana se transformaron usando one hot encodi
 Probamos con redes neuronales, regresión linear regularizada y lightgbm. El error medio absoluto de la regresión lineal era un poco peor que el de los otros dos modelos que llegaron alrededor de 4 minutos. Al igual que con el modelo de disponibilidad se eligió lightgbm por ser más rápido y eficiente en memoria en comparación con la red neuronal.
 
 ### Shap values
-Observando los shap values de modelos tomados al azar vemos que a lo que mas le prestan atención es a la hora, el día de la semana y los espacios disponibles.
+Observando los shap values de modelos tomados al azar vemos que a lo que más le prestan atención es a la hora, el día de la semana y los espacios disponibles.
 
 ![Shap values para distintos modelos de tiempo de arribo de estaciones](./img/shap_eta.png){width=450px}
 
@@ -118,18 +118,18 @@ Ambos modelos pueden mejorarse teniendo en cuenta el estado de las estaciones ce
 Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.
 
 # Backend
-El siguiente diagrama muestra todas las partes sistema y como se relacionan.
+El siguiente diagrama muestra todas las partes del sistema y como se relacionan.
 
 ![Arquitectura](./img/arch.png){width=500px}
 
 ## Sección 1
-La primer parte es obtener la data desde la API de transporte de la ciudad. Mediante un Cloudwatch Trigger se lanza una Lambda function cada 1 minuto que guarda el resultado como JSON de la api en S3. Tenemos alrededor de 700GB de datos, correspondientes a los ultimos 3 años.
+La primera parte es obtener la data desde la API de transporte de la ciudad. Mediante un Cloudwatch Trigger se lanza una Lambda function cada 1 minuto que guarda el resultado como JSON de la api en S3. Tenemos alrededor de 700GB de datos, correspondientes a los últimos 3 años.
 
 ## Sección 2
-La data cruda como JSON no es particularmente útil para hacer consultas, por ser muy pesada. En esta segunda etapa esa data cruda en JSON se pasa a parquet y se sube a un bucket particionado por año, mes, dia y hora en MINio. Este proceso está orquestado con Apache Airflow para correr horariamente.
+La data cruda como JSON no es particularmente útil para hacer consultas, por ser muy pesada. En esta segunda etapa esa data cruda en JSON se pasa a parquet y se sube a un bucket particionado por año, mes, día y hora en MINio. Este proceso está orquestado con Apache Airflow para correr horariamente.
 
 ## Sección 3
-Ya a esta altura tenemos toda la data lista para entrenar. Para evitar instalar un motor SQL para poder hacer consultas rápidamente utilizamos DuckDB desde local para consultar la data particionada en parquet en MINio. Con la data cargada, entrenamos el modelo y lo cargamos en MLFlow, junto con sus parametros.
+Ya a esta altura tenemos toda la data lista para entrenar. Para evitar instalar un motor SQL para poder hacer consultas rápidamente utilizamos DuckDB desde local para consultar la data particionada en parquet en MINio. Con la data cargada, entrenamos el modelo y lo cargamos en MLFlow, junto con sus parámetros.
 
 ## Sección 4
 La API del backend corre en un PaaS hosteado por uno de los miembros del grupo (Dokku), que es muy similar en uso a Heroku. Utilizamos dos plugins:
@@ -137,14 +137,14 @@ La API del backend corre en un PaaS hosteado por uno de los miembros del grupo (
 2. Redis para cache
 
 ## Sección 5
-Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy que trabaja cómodamente con containers de docker y asigna las rutas basado en etiquetas. Se integra con dokku facilmente.
+Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy que trabaja cómodamente con containers de docker y asigna las rutas basado en etiquetas. Se integra con dokku fácilmente.
 
 ## Sección 6
 En el siguiente apartado se describe en mayor profundidad el frontend, desarrollado en React y  utilizando Chakra UI. Actualmente se aloja en GitHub Pages, pero está la imagen de docker disponible para eventualmente desplegarlo en Dokku.
 
 # Frontend
 
-Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a que estación ir y en que momento ir.
+Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.
 
 Para esto, tomando la información que nos da la API del backend, plasmamos los resultados de las predicciones en una aplicación web: [BicisBA.github.io](BicisBA.github.io). Esta aplicación fue desarrollada en React y diseñada con [Chakra UI](chakra-ui.com/).
 
@@ -159,13 +159,13 @@ Dada la geolocalización del usuario, tanto desde el celular como desde una comp
 
 ![Tiempo de salida recomendado para las estaciones de baja probabilidad](./img/front-2.png){width=500px}
 
-Adicionalmente, de las estaciones amarillas y rojas podemos ver en que momento se nos recomienda salir para poder encontrarnos una bicicleta, para poder cronometrar mejor nuestra salida.
+Adicionalmente, de las estaciones amarillas y rojas podemos ver en qué momento se nos recomienda salir para poder encontrarnos una bicicleta, y así cronometrar mejor nuestra salida.
 
 Un problema encontrado al trabajar con la localización en tiempo real del usuario (por ejemplo, cuando camina con el celular) es el de tener las predicciones frescas, sin sobrecargar al backend. Para esto hay que balancear las expectativas del usuario (no sirve de nada ver como cambian levemente los números mientras caminás en una dirección determinada) y la realidad de los datos (no queremos empezar a caminar para una estación y que al rato deje de ser la óptima).
 
 Entonces, hay distintos períodos de actualización, para distintas porciones de la información que mostramos:
 
-- Cada 30 segundos se actualiza la información de las estaciones, para saber cuantas bicicletas contienen actualmente
+- Cada 30 segundos se actualiza la información de las estaciones, para saber cuántas bicicletas contienen actualmente
 - Cada 200 metros se actualizan las predicciones del backend, para saber que estación es la óptima
 
 Con este balance logramos que el usuario tenga una experiencia poco caótica en su pantalla y bastante cercana a los datos reales.
@@ -179,6 +179,6 @@ Con este balance logramos que el usuario tenga una experiencia poco caótica en 
 	- Configurar y desplegar grafana para dashboards
 	- Configurar y desplegar Loki para revisión de logs
 - Dashboard de predicciones: dado que guardamos todas las predicciones hechas podemos medir _model drift_ y medir performance online de los modelos
-- Gráficos de historial de estaciones: ver en la pagina algunas graficas del estado histórico de cada estación
-- Gráficos de "zonas calientes": marcar en un mapa cuales son las zonas desde las cuales mas se está usando la plataforma y las estaciones mas solicitadas en los ultimos minutos
+- Gráficos de historial de estaciones: ver en la página algunas gráficas del estado histórico de cada estación
+- Gráficos de "zonas calientes": marcar en un mapa cuales son las zonas desde las cuales más se está usando la plataforma y las estaciones mas solicitadas en los íltimos minutos
 - DAG de reentrenamiento. Para poder ejecutar esto, se recomendaría usar un KubernetesPodOperator para correr en un entorno aprovisionado con recursos suficientes.

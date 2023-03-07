@@ -16,11 +16,15 @@ La propuesta del presente proyecto es resolver el problema anteriormente descrit
 # Ciencia de datos
 
 ## Descripción del problema
+
 Cuando buscamos una bicicleta desde la aplicación tenemos distintas estaciones disponibles, pero debido al tiempo que nos toma llegar hasta el lugar pueden haber variado su estado desde que lo vimos en la app.
 
 Para ayudar en la toma de decisiones proponemos dos modelos, basándonos en datos recolectados de la API de transporte de bicicletas. Un modelo que indique la probabilidad de encontrar una bicicleta disponible al llegar a las distintas estaciones disponibles. Un modelo que estima cuántos minutos faltan para que llegue la próxima bicicleta cuando la estación está vacía.
+
 ## Análisis exploratorio de datos
+
 ### Variables disponibles
+
 Las variables importantes que utilizamos en los modelos son:
 
  - **last_reported** timestamp del momento en que se reportan los datos
@@ -74,6 +78,7 @@ Se tomó el valor absoluto promedio de los cambios de bicicleta para distintos m
 ![Evolución del valor absoluto medio de diferencia de bicicletas en función del tiempo que pasa](./img/bike_dif_time.png){width=500px}
 
 ## Modelo de disponibilidad
+
 ### Conjunto de datos
 Para armar el conjunto de datos tomamos los siguientes estados reportados de cada estación, agregando los minutos pasados como característica y si hay bicicletas disponibles como valor a predecir. El resultado fue un dataset desbalanceado donde hay aproximadamente un 8% de valores negativos contra un 92% de valores positivos.
 
@@ -99,6 +104,7 @@ Los Shap values permiten darle explicabilidad a los modelos complejos como light
 ![Shap values para distintos modelos de disponibilidad de estaciones](./img/shap_avail.png){width=450px}
 
 ## Modelo de tiempo estimado de arribo
+
 ### Conjunto de datos
 Para armar el conjunto de datos tomamos el mínimo de los siguientes estados que tenían más bicicletas que el estado actual, cuando la estación está vacía, de ahí se obtuvieron los minutos hasta el próximo arribo que se tomó como el valor a predecir.
 

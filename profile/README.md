@@ -10,7 +10,8 @@ The particular problem that we want to solve is that as Buenos Aires is a busy c
 
 This project consists of 4 repos
 
-- [The landing page](https://github.com/BicisBA/.github), which most importantly contains the whole report on how to contribute to this project and how it was built
-- [The research analysis](https://github.com/BicisBA/research), which TODO
-- [The ML model](https://github.com/BicisBA/frame) that makes the predictions TODO
+- [The landing page](https://github.com/BicisBA/.github), which most importantly contains the whole report on how it was built.
+- [The ML model](https://github.com/BicisBA/frame) that makes the different predictions and serves them on an API for the clients.
 - [The front-end web client](https://github.com/BicisBA/BicisBA.github.io), built on React, to easily see the prediction results from your computer or phone.
+- [The data research repo](https://github.com/BicisBA/research), which contains our core analysis of the data provided by the Buenos Aires "
+API Transporte"

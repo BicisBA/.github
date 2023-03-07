@@ -160,6 +160,10 @@ Se corren ambos modelos, y se guarda la predicción completa a la DB. Esto inclu
 
 Luego, esa predicción se devuelve al cliente. En el proceso de marshaling de la respuesta muchos de los campos antes mencionados de dejan de lado, para no sobrecargar al cliente con información inútil.
 
+A la derecha de la imagen vemos como es el proceso por el cual la API dispone siempre del ultimo estado del sistema. No tiene sentido guardar todo el historial porque es lo que hace el proceso que guarda la data en S3. Entonces, cada un tiempo configurable, la API le pega a la API de Ciudad para obtener el último snapshot del sistema.
+
+Este estado se guarda en la db para disponbilizarlo. De este modo, nuestra API es el único sistema con el cual un cliente tiene que interactuar, y es un "pasamanos" de los requests de estado de estación e información de estaciones.
+
 # Frontend
 
 Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.

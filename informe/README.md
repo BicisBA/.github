@@ -118,6 +118,7 @@ Ambos modelos pueden mejorarse teniendo en cuenta el estado de las estaciones ce
 Además de la información del sistema de bicicletas en sí, se puede agregar al modelo datos que influyen en los patrones de comportamiento de los usuarios como el estado del clima y el tráfico. También se podrían considerar las fechas especiales, feriados o eventos de la ciudad.
 
 # Backend
+![Arquitectura](./img/arch.png){width=500px}
 
 # Frontend
 

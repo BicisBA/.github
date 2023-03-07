@@ -138,6 +138,11 @@ Los servicios que vemos en esta caja corren detrás de Traefik, un reverse proxy
 ## Sección 6
 En el siguiente apartado se describe en mayor profundidad el frontend, desarrollado en React y  utilizando Chakra UI. Actualmente se aloja en GitHub Pages, pero está la imagen de docker disponible para eventualmente desplegarlo en Dokku.
 
+## Entrenamiento y recarga del modelo
+Explicacion--
+
+![Diagrama de secuencia de un entrenamiento](./img/model_reload.png){width=500px}
+
 # Frontend
 
 Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.

@@ -1,0 +1,50 @@
+---
+title: "BicisBA"
+subtitle: |
+  | Facultad de Ingeniería, Universidad de Buenos Aires
+  | [75.61] Taller de Programación III
+date: 10 de Marzo de 2023
+author: |
+ | \texttt{100029} \hspace{37px} del Mazo, Federico
+ | \texttt{94180} \hspace{11px} Lopez Destain, Francisco
+ | \texttt{98153} \hspace{21px} Mermet, Javier Ignacio
+geometry: margin=2.5cm
+titlepage: true
+colorlinks: true
+
+# 1. Set-up header/footer
+# 2. Avoid the 'Figure 1: <Caption>' and just be caption
+# 3. Make `text` be in magenta
+# 4. Force all images to be placed [h] (avoid blank spaces)
+
+header-includes: |
+  \usepackage{fancyhdr, xcolor, listings, framed, fvextra, caption, float}
+  \pagestyle{fancy}
+  \fancyhead[L]{[75.61] Taller de Programación III \\ del Mazo, Destain, Mermet}
+  \fancyhead[R]{BicisBA \\ 2022C2}
+
+  \captionsetup[figure]{labelformat=empty}
+
+  \let\OldTexttt\texttt
+  \renewcommand{\texttt}[1]{\OldTexttt{\color{magenta}{#1}}}
+
+  \let\origfigure\figure
+  \let\endorigfigure\endfigure
+  \renewenvironment{figure}[1][2] {
+      \expandafter\origfigure\expandafter[H]
+  } {
+      \endorigfigure
+  }
+
+# Make ```lang be wrapped, with a nice left bar, etc
+include-before: |
+  \ifcsname Shaded\endcsname
+    \let\oldshaded\Shaded
+    \newenvironment{leftbar_mod}{
+    \def\FrameCommand{{\color{magenta}\vrule width 1pt} \hspace{10pt}}
+    \MakeFramed {\advance\hsize-\width \FrameRestore}}
+    {\endMakeFramed}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+    \renewenvironment{Shaded}{\begin{leftbar_mod}\begin{oldshaded}}{\end{oldshaded}\end{leftbar_mod}}
+  \else \fi
+---

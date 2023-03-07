@@ -164,6 +164,8 @@ A la derecha de la imagen vemos como es el proceso por el cual la API dispone si
 
 Este estado se guarda en la db para disponbilizarlo. De este modo, nuestra API es el único sistema con el cual un cliente tiene que interactuar, y es un "pasamanos" de los requests de estado de estación e información de estaciones.
 
+Las estaciones cambian con poco frecuencia, por lo que este tiempo tiene sentido configurarlo en el orden de magnitud de un día. En cambio su estado es más dinámico, por lo que tiene sentido configurarlo en el orden del minuto.
+
 # Frontend
 
 Una vez que tenemos todos los resultados de las predicciones, lo que nos queda es poder mostrarselos al usuario de manera legible y clara, sin que se nos filtre nuestra abstracción de los datos: al usuario no le interesa saber el `station_id` de una estación, ni el `last_reported` de los datos; le interesa saber a qué estación ir y en qué momento ir.
